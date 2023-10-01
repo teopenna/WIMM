@@ -13,6 +13,7 @@ WORKDIR "/src/Wimm.Api"
 RUN dotnet build "Wimm.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
+WORKDIR "/src/Wimm.Api"
 RUN dotnet publish "Wimm.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
