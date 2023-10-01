@@ -1,11 +1,14 @@
 using JetBrains.Annotations;
 
+using Wimm.Api.Common.SystemClock;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSystemClock();
 
 var app = builder.Build();
 
