@@ -1,4 +1,4 @@
-using Wimm.Api;
+using JetBrains.Annotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,24 +18,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseAuthorization();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.UseExceptionHandler();
 
 app.Run();
+
+#pragma warning disable 1591
+namespace Wimm.Api
+{
+    [UsedImplicitly]
+    public sealed class Program
+    {
+    }
+}
+#pragma warning restore 1591
