@@ -1,5 +1,8 @@
 using JetBrains.Annotations;
 
+using Wimm.Api.Categories;
+using Wimm.Api.Common.Database;
+using Wimm.Api.Common.ErrorHandling;
 using Wimm.Api.Common.SystemClock;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSystemClock();
 
+builder.Services.AddDatabase(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,11 +24,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseDatabase();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+#pragma warning disable S125
+//app.UseAuthorization();
+#pragma warning restore S125
 
-app.UseExceptionHandler();
+app.UseErrorHandling();
+
+app.MapCategories();
 
 app.Run();
 
