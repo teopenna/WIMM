@@ -3,7 +3,7 @@ namespace Wimm.Api.Categories.Data;
 internal sealed class Category
 {
     public Guid Id { get; init; }
-    public Guid TenantId { get; set; }
+    public Guid TenantId { get; init; }
     public string Name { get; init; }
     public DateTimeOffset Created { get; init; }
 

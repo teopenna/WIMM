@@ -1,19 +1,21 @@
 using JetBrains.Annotations;
-
 using Wimm.Api.Categories;
+using Wimm.Api.Common.Clock;
 using Wimm.Api.Common.Database;
 using Wimm.Api.Common.ErrorHandling;
-using Wimm.Api.Common.SystemClock;
+using Wimm.Api.Common.Events.EventBus;
+using Wimm.Api.Transactions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
+builder.Services.AddExceptionHandling();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSystemClock();
+builder.Services.AddEventBus();
+builder.Services.AddClock();
 
-builder.Services.AddDatabase(builder.Configuration);
+builder.Services.AddTransactions(builder.Configuration);
 
 var app = builder.Build();
 
@@ -32,7 +34,7 @@ app.UseHttpsRedirection();
 //app.UseAuthorization();
 #pragma warning restore S125
 
-app.UseErrorHandling();
+//app.UseErrorHandling();
 
 app.MapCategories();
 
