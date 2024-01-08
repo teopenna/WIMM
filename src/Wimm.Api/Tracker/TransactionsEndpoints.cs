@@ -1,6 +1,6 @@
-using Wimm.Api.Transactions.CreateTransaction;
+using Wimm.Api.Tracker.CreateTransaction;
 
-namespace Wimm.Api.Transactions;
+namespace Wimm.Api.Tracker;
 
 internal static class TransactionsEndpoints
 {

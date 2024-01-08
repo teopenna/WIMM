@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Wimm.Api.Transactions.Data.Database;
+namespace Wimm.Api.Tracker.Data.Database;
 
 internal static class DatabaseModule
 {
@@ -9,7 +9,7 @@ internal static class DatabaseModule
     internal static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString(ConnectionStringName);
-        services.AddDbContext<TransactionsPersistence>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<TrackerPersistence>(options => options.UseNpgsql(connectionString));
         
         return services;
     }

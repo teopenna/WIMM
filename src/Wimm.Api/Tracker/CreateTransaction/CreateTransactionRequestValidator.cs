@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Wimm.Api.Transactions.CreateTransaction;
+namespace Wimm.Api.Tracker.CreateTransaction;
 
 internal sealed class CreateTransactionRequestValidator : AbstractValidator<CreateTransactionRequest>
 {

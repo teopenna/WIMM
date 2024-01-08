@@ -1,4 +1,4 @@
-namespace Wimm.Api.Transactions;
+namespace Wimm.Api.Tracker;
 
 internal static class TransactionsApiPaths
 {

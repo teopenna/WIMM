@@ -1,10 +1,9 @@
 using JetBrains.Annotations;
 using Wimm.Api.Categories;
 using Wimm.Api.Common.Clock;
-using Wimm.Api.Common.Database;
 using Wimm.Api.Common.ErrorHandling;
 using Wimm.Api.Common.Events.EventBus;
-using Wimm.Api.Transactions;
+using Wimm.Api.Tracker;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddEventBus();
 builder.Services.AddClock();
 
-builder.Services.AddTransactions(builder.Configuration);
+builder.Services.AddTracker(builder.Configuration);
 
 var app = builder.Build();
 
@@ -26,7 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseDatabase();
+app.UseTracker();
 
 app.UseHttpsRedirection();
 
@@ -37,6 +36,7 @@ app.UseHttpsRedirection();
 //app.UseErrorHandling();
 
 app.MapCategories();
+app.MapTransactions();
 
 app.Run();
 

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Wimm.Api.Transactions.Data.Database;
+namespace Wimm.Api.Tracker.Data.Database;
 
 internal sealed class TransactionEntityConfiguration : IEntityTypeConfiguration<Transaction>
 {
