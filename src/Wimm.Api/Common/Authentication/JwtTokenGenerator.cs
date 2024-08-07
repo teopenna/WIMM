@@ -1,26 +1,25 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using Wimm.Api.Common.SystemClock;
 
 namespace Wimm.Api.Common.Authentication;
 
-internal class JwtTokenGenerator : IJwtTokenGenerator
+internal class JwtTokenGenerator(
+    ISystemClock systemClock,
+    IOptions<JwtTokenKeyConfig> jwtConfigOptions) : IJwtTokenGenerator
 {
-    private readonly ISystemClock _systemClock;
-
-    public JwtTokenGenerator(ISystemClock systemClock)
-    {
-        _systemClock = systemClock;
-    }
-
+    private readonly JwtTokenKeyConfig _jwtConfig = jwtConfigOptions.Value;
+    
     public string GenerateToken(Guid userId, string firstName, string lastName)
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("mysupersecret")),
+                Encoding.UTF8.GetBytes(_jwtConfig.Key)),
             SecurityAlgorithms.HmacSha256);
         
         var claims = new[]
@@ -34,7 +33,7 @@ internal class JwtTokenGenerator : IJwtTokenGenerator
 
         var securityToken = new JwtSecurityToken(
             issuer: "Wimm",
-            expires: _systemClock.Now.DateTime.AddHours(1),
+            expires: systemClock.Now.DateTime.AddHours(1),
             claims: claims,
             signingCredentials: signingCredentials);
 
