@@ -13,5 +13,7 @@ internal sealed class CategoryEntityConfiguration : IEntityTypeConfiguration<Cat
         builder.Property(category => category.Name)
             .HasMaxLength(100)
             .IsRequired();
+        builder.Property(category => category.IconCode)
+            .HasMaxLength(30);
     }
 }

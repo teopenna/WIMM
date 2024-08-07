@@ -4,4 +4,5 @@ namespace Wimm.Api.Categories.Create;
 /// Category creation request
 /// </summary>
 /// <param name="Name">The category name</param>
-public sealed record CreateCategoryRequest(string Name);
+/// <param name="IconCode">The category icon code</param>
+public sealed record CreateCategoryRequest(string Name, string IconCode);

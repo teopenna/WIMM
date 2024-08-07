@@ -15,7 +15,7 @@ internal static class CreateCategoryEndpoint
             {
                 var tenantId = Guid.NewGuid();
 
-                var category = Category.CreateUnique(tenantId, request.Name);
+                var category = Category.CreateUnique(tenantId, request.Name, request.IconCode);
 
                 await persistence.Categories.AddAsync(category, cancellationToken);
                 await persistence.SaveChangesAsync(cancellationToken);
