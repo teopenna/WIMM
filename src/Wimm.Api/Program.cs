@@ -38,7 +38,7 @@ app.UseHttpsRedirection();
 app.MapCategories();
 app.MapTransactions();
 
-app.Run();
+await app.RunAsync();
 
 #pragma warning disable 1591
 namespace Wimm.Api
